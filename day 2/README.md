@@ -77,7 +77,30 @@ This helps prevent invalid infrastructure changes before deployment.
 # Project Structure
 
 ```
-.├── .github/│   └── workflows/│       └── terraform.yml│├── envs/│   └── dev/│       ├── main.tf│       ├── variables.tf│       ├── terraform.tfvars│       └── provider.tf│├── modules/│   ├── network/│   │   ├── main.tf│   │   ├── variables.tf│   │   └── outputs.tf│   ││   └── policy/│       ├── main.tf│       ├── variables.tf│       └── outputs.tf│└── README.md
+.
+├── .github/
+│   └── workflows/
+│       └── terraform.yml
+│
+├── envs/
+│   └── dev/
+│       ├── main.tf
+│       ├── variables.tf
+│       ├── terraform.tfvars
+│       └── provider.tf
+│
+├── modules/
+│   ├── network/
+│   │   ├── main.tf
+│   │   ├── variables.tf
+│   │   └── outputs.tf
+│   │
+│   └── policy/
+│       ├── main.tf
+│       ├── variables.tf
+│       └── outputs.tf
+│
+└── README.md
 ```
 
 ---
@@ -90,10 +113,17 @@ Terraform state is stored remotely in Azure Storage to support:
 - State consistency
 - Reduced risk of local state conflicts
 
-Example backend structure:
+# Backend Configuration (AzureRM)
 
-```
-terraform {  backend "azurerm" {    resource_group_name  = "tfstate-rg"    storage_account_name = "tfstatestorage"    container_name       = "tfstate"    key                  = "dev.terraform.tfstate"  }}
+```hcl
+terraform {
+  backend "azurerm" {
+    resource_group_name  = "tfstate-rg"
+    storage_account_name = "tfstatestorage"
+    container_name       = "tfstate"
+    key                  = "dev.terraform.tfstate"
+  }
+}
 ```
 
 ---
